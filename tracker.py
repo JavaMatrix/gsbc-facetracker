@@ -17,6 +17,7 @@ OUTPUTS = ["/dev/ttyACM", "./out.log"]
 # Seconds between camera checks
 WAIT_TIME = 0.5
 
+# Command strings dictating direction to move the camera.
 COMMAND_UP = "U"
 COMMAND_DOWN = "D"
 COMMAND_LEFT = "L"
@@ -81,9 +82,10 @@ def calc_adjustment():
     return (COMMAND_STAY, 0, 0)
 
 while (True):
-    command = f"('{COMMAND_STAY}', 0, 0)"
+    command = f"{COMMAND_STAY}0_0"
     try:
-        command = str(calc_adjustment())
+        direction, speed, time = calc_adjustment()
+        command = f"{direction}{speed}_{time}"
     except:
         print("failed to get camera data")
     print(command)
